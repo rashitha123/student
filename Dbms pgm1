@@ -1,0 +1,17 @@
+create table student(usn integer primary key, name varchar(10), phno integer, branch varchar(10));                  select * from student;
+insert into student values(101,'rashitha','568798','cs');
+ insert into student values(102,'ramya','6879553','ec') ;                                                                       
+ insert into student values(103,'rachana','5698776','cs');  
+  insert into student values(104,'anusha','505678','is');                                                                                               
+   insert into student values(105,'tejasvi','678798','cs');    
+   
+   
+Results  
+  
+| usn | name     | phno    | branch |
+| --- | -------- | ------- | ------ |
+| 101 | rashitha | 568798  | cs     |
+| 102 | ramya    | 6879553 | ec     |
+| 103 | rachana  | 5698776 | cs     |
+| 104 | anusha   | 505678  | is     |
+| 105 | tejasvi  | 678798  | cs     |
