@@ -5,6 +5,8 @@ insert into BOOK values(102,'ATC','PQR','2001');
 insert into BOOK values(103,'ADP','XYZ','2002');
 insert into BOOK values(104,'ME','UVW','2003');
 insert into BOOK values(105,'ATC','BCD','2004');
+creat table Book_copies(Book_id integer,Branch_id integer,No_of_copies integer,
+primary key(Book_id,Branch_id));
                                             
 **Query #1**                                            
 select * from BOOK;
