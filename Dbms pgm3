@@ -2,5 +2,38 @@ create table Publisher(name varchar(20), address varchar(20), phone integer, pri
 create table Book(Book_id integer, Title varchar(20), Publisher_name varchar(20), Pub_year integer, primary key(Book_id));
 create table Book_Authors(Book_id integer primary key, Author_name varchar(20), foreign key(Book_id) references Book(Book_id));
 create table Library_Branch(Branch_id integer primary key, Branch_name varchar(20), address varchar(20));
-create table Book_copies(Book_id integer, Branch_id integer, No_of_copies integer, primary key(Book_id,Branch_id), foreign key(Book_id) references Book(Book_id), foreign key(Branch_id) references Library_Branch(Branch_id));
-create table Book_Lending(Book_id integer, Branch_id integer, card_no integer, date_out varchar(20), due_date varchar(20), primary key(Book_id,Branch_id,card_no), foreign key(Book_id) references Book(Book_id), foreign key(Branch_id) references Library_Branch(Branch_id));
+create table Book_copies(Book_id integer, Branch_id integer, No_of_copies integer, primary key(Book_id,Branch_id),
+foreign key(Book_id) references Book(Book_id), foreign key(Branch_id) references Library_Branch(Branch_id));
+create table Book_Lending(Book_id integer, Branch_id integer, card_no integer, date_out varchar(20),
+due_date varchar(20), primary key(Book_id,Branch_id,card_no), foreign key(Book_id) references Book(Book_id),
+foreign key(Branch_id) references Library_Branch(Branch_id));
+insert into Publisher values('Mcgraw','Bangalore',9696500001);
+insert into Publisher values('Person','Bangalore',9595950000);
+insert into Publisher values('SamPub','Mangalore',9494940000);
+insert into Publisher values('IOP','Mumbai',9797970000);
+insert into Publisher values('IEEE','Delhi',9090900000);
+insert into Book values(10,'DBMS','Mcgraw',2010);
+insert into Book values(20,'SE','Person',2008);
+insert into Book values(30,'FLAT','SamPub',2019);
+insert into Book values(40,'BDA','IOP',2018);
+insert into Book values(50,'MP','IEEE',2020);
+insert into Book_Authors values(10,'Andrew');
+insert into Book_Authors values(20,'RajKumar');
+insert into Book_Authors values(30,'Samual');
+insert into Book_Authors values(40,'Padma');
+insert into Book_Authors values(50,'Guru');
+insert into Library_Branch values(100,'Main Building','Mangalore');
+insert into Library_Branch values(200,'GroundFloor','Bangalore');
+insert into Library_Branch values(300,'1stFloor','Bangalore');
+insert into Library_Branch values(400,'Research Building','Udupi');
+insert into Library_Branch values(500,'ODP Building','Manipal');
+insert into Book_copies values(10,100,20);
+insert into Book_copies values(30,100,30);
+insert into Book_copies values(10,200,5);
+insert into Book_copies values(20,300,15);
+insert into Book_copies values(40,500,7);
+insert into Book_Lending values(10,100,201,'2020-06-15','2020-06-25');
+insert into Book_Lending values(20,200,202,'2020-07-10','2020-07-20');
+insert into Book_Lending values(30,300,203,'2020-07-25','2020-07-30');
+insert into Book_Lending values(40,400,204,'2020-08-14','2020-08-26');
+insert into Book_Lending values(50,500,205,'2020-09-1','2020-09-10');
