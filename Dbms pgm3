@@ -1,6 +1,7 @@
 create table Publisher(name varchar(20), address varchar(20), phone Long, primary key(name));
 create table Book(Book_id integer, Title varchar(20), Publisher_name varchar(20), Pub_year integer, primary key(Book_id));
-create table Book_Authors(Book_id integer primary key, Author_name varchar(20), foreign key(Book_id) references Book(Book_id));
+create table Book_Authors(Book_id integer primary key, Author_name varchar(20),
+foreign key(Book_id) references Book(Book_id));
 create table Library_Branch(Branch_id integer primary key, Branch_name varchar(20), address varchar(20));
 create table Book_copies(Book_id integer, Branch_id integer, No_of_copies integer, primary key(Book_id,Branch_id),
 foreign key(Book_id) references Book(Book_id), foreign key(Branch_id) references Library_Branch(Branch_id));
