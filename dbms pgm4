@@ -1,8 +1,10 @@
 create table student(ssn integer primary key,name varchar(10),major varchar(10),bdate Date);
 create table course(courseid integer primary key,cname varchar(10),dept varchar(10));
 create table text_book(book_isbn integer primary key, book_title varchar(10), publisher varchar(10), author varchar(10));
-create table book_adoption(courseid integer,quarter integer,book_isbn integer, primary key(courseid,quarter),foreign key(courseid) references course(courseid),foreign key(book_isbn) references text_book(book_isbn));
-create table enroll(ssn integer,courseid integer,quarter integer,grade varchar(5), primary key(ssn,courseid,quarter),foreign key(ssn) references student(ssn),foreign key(courseid,quarter) references book_adoption(courseid,quarter));
+create table book_adoption(courseid integer,quarter integer,book_isbn integer, primary key(courseid,quarter),
+foreign key(courseid) references course(courseid),foreign key(book_isbn) references text_book(book_isbn));
+create table enroll(ssn integer,courseid integer,quarter integer,grade varchar(5), primary key(ssn,courseid,quarter),
+foreign key(ssn) references student(ssn),foreign key(courseid,quarter) references book_adoption(courseid,quarter));
 insert into student values(11,'ram','cs','2001-02-12');
 insert into student values(12,'raj','ec','2000-01-09');
 insert into student values(13,'raksha','me','2000-12-19');
