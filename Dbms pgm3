@@ -1,13 +1,13 @@
 create table Publisher(name varchar(20), address varchar(20), phone Long, primary key(name));
 create table Book(Book_id integer, Title varchar(20), Publisher_name varchar(20), Pub_year integer, primary key(Book_id));
 create table Book_Authors(Book_id integer primary key, Author_name varchar(20),
-foreign key(Book_id) references Book(Book_id));
+foreign key(Book_id) references Book(Book_id) ON DELETE CASCADE);
 create table Library_Branch(Branch_id integer primary key, Branch_name varchar(20), address varchar(20));
 create table Book_copies(Book_id integer, Branch_id integer, No_of_copies integer, primary key(Book_id,Branch_id),
-foreign key(Book_id) references Book(Book_id), foreign key(Branch_id) references Library_Branch(Branch_id));
+foreign key(Book_id) references Book(Book_id) ON DELETE CASCADE, foreign key(Branch_id) references Library_Branch(Branch_id) ON DELETE CASCADE);
 create table Book_Lending(Book_id integer, Branch_id integer, card_no integer, date_out varchar(20),
-due_date varchar(20), primary key(Book_id,Branch_id,card_no), foreign key(Book_id) references Book(Book_id),
-foreign key(Branch_id) references Library_Branch(Branch_id));
+due_date varchar(20), primary key(Book_id,Branch_id,card_no), foreign key(Book_id) references Book(Book_id) ON DELETE CASCADE,
+foreign key(Branch_id) references Library_Branch(Branch_id) ON DELETE CASCADE);
 insert into Publisher values('Mcgraw','Bangalore',9696500001);
 insert into Publisher values('Person','Bangalore',9595950000);
 insert into Publisher values('SamPub','Mangalore',9494940000);
@@ -38,3 +38,91 @@ insert into Book_Lending values(20,200,202,'2020-07-10','2020-07-20');
 insert into Book_Lending values(30,300,203,'2020-07-25','2020-07-30');
 insert into Book_Lending values(40,400,204,'2020-08-14','2020-08-26');
 insert into Book_Lending values(50,500,205,'2020-09-1','2020-09-10');
+
+
+
+
+**Query #1**
+
+    select * from Book_Authors;
+
+| Book_id | Author_name |
+| ------- | ----------- |
+| 10      | Andrew      |
+| 20      | RajKumar    |
+| 30      | Samual      |
+| 40      | Padma       |
+| 50      | Guru        |
+
+---
+**Query #2**
+
+    select * from Book;
+
+| Book_id | Title | Publisher_name | Pub_year |
+| ------- | ----- | -------------- | -------- |
+| 10      | DBMS  | Mcgraw         | 2010     |
+| 20      | SE    | Person         | 2008     |
+| 30      | FLAT  | SamPub         | 2019     |
+| 40      | BDA   | IOP            | 2018     |
+| 50      | MP    | IEEE           | 2020     |
+
+---
+**Query #3**
+
+    select * from Book,Book_Authors where Book.Book_id=Book_Authors.Book_id;
+
+| Book_id | Title | Publisher_name | Pub_year | Book_id | Author_name |
+| ------- | ----- | -------------- | -------- | ------- | ----------- |
+| 10      | DBMS  | Mcgraw         | 2010     | 10      | Andrew      |
+| 20      | SE    | Person         | 2008     | 20      | RajKumar    |
+| 30      | FLAT  | SamPub         | 2019     | 30      | Samual      |
+| 40      | BDA   | IOP            | 2018     | 40      | Padma       |
+| 50      | MP    | IEEE           | 2020     | 50      | Guru        |
+
+---
+**Query #4**
+
+    select Title from Book where Book_id=20;
+
+| Title |
+| ----- |
+| SE    |
+
+---
+**Query #5**
+
+    select Book_id from Book where Publisher_name='IEEE';
+
+| Book_id |
+| ------- |
+| 50      |
+
+---
+**Query #6**
+
+    select Title,Branch_id,No_of_copies from Book,Book_copies where Book.Book_id=Book_copies.Book_id;
+
+| Title | Branch_id | No_of_copies |
+| ----- | --------- | ------------ |
+| DBMS  | 100       | 20           |
+| DBMS  | 200       | 5            |
+| SE    | 300       | 15           |
+| FLAT  | 100       | 30           |
+| BDA   | 500       | 7            |
+
+---
+**Query #7**
+
+    select Book.Book_id,Title,Publisher_name,Author_name,No_of_copies from Book,Book_Authors,Book_copies where Book.Book_id=Book_Authors.Book_id AND Book.Book_id=Book_copies.Book_id;
+
+| Book_id | Title | Publisher_name | Author_name | No_of_copies |
+| ------- | ----- | -------------- | ----------- | ------------ |
+| 10      | DBMS  | Mcgraw         | Andrew      | 20           |
+| 10      | DBMS  | Mcgraw         | Andrew      | 5            |
+| 20      | SE    | Person         | RajKumar    | 15           |
+| 30      | FLAT  | SamPub         | Samual      | 30           |
+| 40      | BDA   | IOP            | Padma       | 7            |
+
+---
+
