@@ -33,11 +33,16 @@ insert into Book_copies values(30,100,30);
 insert into Book_copies values(10,200,5);
 insert into Book_copies values(20,300,15);
 insert into Book_copies values(40,500,7);
-insert into Book_Lending values(10,100,201,'2020-06-15','2020-06-25');
-insert into Book_Lending values(20,200,202,'2020-07-10','2020-07-20');
-insert into Book_Lending values(30,300,203,'2020-07-25','2020-07-30');
-insert into Book_Lending values(40,400,204,'2020-08-14','2020-08-26');
-insert into Book_Lending values(50,500,205,'2020-09-1','2020-09-10');
+insert into Book_Lending values(10,100,201,'2017-06-15','2020-06-25');
+insert into Book_Lending values(20,200,202,'2017-05-10','2017-05-20');
+insert into Book_Lending values(30,300,203,'2017-07-25','2020-07-30');
+insert into Book_Lending values(40,400,204,'2017-08-14','2020-08-26');
+insert into Book_Lending values(50,500,205,'2017-09-1','2020-09-10');
+insert into Book_Lending values(10,100,202,'2017-05-11','2017-05-21');
+insert into Book_Lending values(30,300,202,'2017-05-13','2017-05-22');
+insert into Book_Lending values(50,500,202,'2017-04-10','2017-04-20');                                                                                                    
+
+
 
 
 
@@ -125,4 +130,98 @@ insert into Book_Lending values(50,500,205,'2020-09-1','2020-09-10');
 | 40      | BDA   | IOP            | Padma       | 7            |
 
 ---
+                                                                                                  
+****** 23/10/2020 updation ********    
+    
+Results
+
+**Query #1**
+
+    select B.Book_id,Title,Publisher_name,Author_name,Branch_id,No_of_copies from Book B,Book_Authors BA,Book_copies BC
+    where B.Book_id=BA.Book_id and BC.Book_id=B.Book_id;
+
+| Book_id | Title | Publisher_name | Author_name | Branch_id | No_of_copies |
+| ------- | ----- | -------------- | ----------- | --------- | ------------ |
+| 10      | DBMS  | Mcgraw         | Andrew      | 100       | 20           |
+| 10      | DBMS  | Mcgraw         | Andrew      | 200       | 5            |
+| 20      | SE    | Person         | RajKumar    | 300       | 15           |
+| 30      | FLAT  | SamPub         | Samual      | 100       | 30           |
+| 40      | BDA   | IOP            | Padma       | 500       | 7            |
+
+---
+**Query #2**
+
+    select card_no from Book_Lending where date_out Between '2017-01-01' and '2017-06-01' Group by card_no Having count(card_no)>3;
+
+| card_no |
+| ------- |
+| 202     |
+
+---
+**Query #3**
+
+    Delete from Book where Book_id=20;
+
+There are no results to be displayed.
+
+---
+**Query #4**
+
+    Select * from Book;
+
+| Book_id | Title | Publisher_name | Pub_year |
+| ------- | ----- | -------------- | -------- |
+| 10      | DBMS  | Mcgraw         | 2010     |
+| 30      | FLAT  | SamPub         | 2019     |
+| 40      | BDA   | IOP            | 2018     |
+| 50      | MP    | IEEE           | 2020     |
+
+---
+**Query #5**
+
+    Select * from Book_Authors;
+
+| Book_id | Author_name |
+| ------- | ----------- |
+| 10      | Andrew      |
+| 30      | Samual      |
+| 40      | Padma       |
+| 50      | Guru        |
+
+---
+**Query #6**
+
+    Select * from Book_copies;
+
+| Book_id | Branch_id | No_of_copies |
+| ------- | --------- | ------------ |
+| 10      | 100       | 20           |
+| 10      | 200       | 5            |
+| 30      | 100       | 30           |
+| 40      | 500       | 7            |
+
+---
+**Query #7**
+
+    Select * from Book_Lending;
+
+| Book_id | Branch_id | card_no | date_out   | due_date   |
+| ------- | --------- | ------- | ---------- | ---------- |
+| 10      | 100       | 201     | 2017-06-15 | 2020-06-25 |
+| 10      | 100       | 202     | 2017-05-11 | 2017-05-21 |
+| 30      | 300       | 202     | 2017-05-13 | 2017-05-22 |
+| 30      | 300       | 203     | 2017-07-25 | 2020-07-30 |
+| 40      | 400       | 204     | 2017-08-14 | 2020-08-26 |
+| 50      | 500       | 202     | 2017-04-10 | 2017-04-20 |
+| 50      | 500       | 205     | 2017-09-1  | 2020-09-10 |
+
+---
+
+
+
+
+
+
+        
+
 
