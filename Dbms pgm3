@@ -239,6 +239,27 @@ There are no results to be displayed.
 
 
 
+**Query #2**
+
+    create view v1 as select B.Book_id,Title,sum(No_of_copies) from Book B, Book_copies BC where B.Book_id=BC.Book_id Group by Book_id,Title;
+
+There are no results to be displayed.
+
+
+
+    select * from v1;
+
+| Book_id | Title | sum(No_of_copies) |
+| ------- | ----- | ----------------- |
+| 10      | DBMS  | 25                |
+| 20      | SE    | 15                |
+| 30      | FLAT  | 30                |
+| 40      | BDA   | 7                 |
+
+---
+
+
+
 
 
 
