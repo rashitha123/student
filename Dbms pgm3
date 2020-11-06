@@ -217,6 +217,26 @@ There are no results to be displayed.
 
 ---
 
+***06-11-2020***
+
+**Query #1**
+
+    create view v1 as select Book_id,sum(No_of_copies) from Book_copies Group by Book_id;
+
+There are no results to be displayed.
+
+
+    select * from v1;
+
+| Book_id | sum(No_of_copies) |
+| ------- | ----------------- |
+| 10      | 25                |
+| 20      | 15                |
+| 30      | 30                |
+| 40      | 7                 |
+
+---
+
 
 
 
