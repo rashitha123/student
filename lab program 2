@@ -1,0 +1,6 @@
+create table SALESMAN(Salesman_id integer primary key,Name varchar(20),City varchar(20),Commission integer);
+create table CUSTOMER(Customer_id integer primary key,Cust_name varchar(20),City varchar(20),Grade varchar(5),
+Salesman_id integer,foreign key(Salesman_id)  references SALESMAN(Salesman_id) ON DELETE CASCADE);
+create table ORDERS(Order_No integer primary key,Purchase_Amt integer,ord_date date,Customer_id integer,Salesman_id integer,
+foreign key(Customer_id) references CUSTOMER(Customer_id) ON DELETE CASCADE,foreign key(Salesman_id) references 
+SALESMAN(Salesman_id) ON DELETE CASCADE);
