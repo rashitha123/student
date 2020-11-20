@@ -21,7 +21,8 @@ insert into ORDERS values(554,1500,'2020-04-02',4000,30);
 insert into ORDERS values(555,2000,'2020-06-02',2000,10);
 
 Query2
-select Salesman_id,Name from SALESMAN where Salesman_id in(select Salesman_id from ORDERS group by Salesman_id having count(*)>1)
+select Salesman_id,Name from SALESMAN where Salesman_id in(select Salesman_id from ORDERS group by 
+Salesman_id having count(*)>1)
 
 
 Salesman_id	Name
@@ -36,7 +37,8 @@ count(*)
 Query 3
 
 (select Salesman_id,Name from SALESMAN S
-where exists(select Salesman_id from CUSTOMER C where S.city=C.city and S.Salesman_id=C.Salesman_id)) union (select Salesman_id,Name from SALESMAN S
+where exists(select Salesman_id from CUSTOMER C where S.city=C.city and S.Salesman_id=C.Salesman_id)) union
+(select Salesman_id,Name from SALESMAN S
 where not exists(select Salesman_id from CUSTOMER C where S.city=C.city and S.Salesman_id=C.Salesman_id))
 
 Salesman_id	Name
