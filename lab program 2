@@ -1,6 +1,6 @@
 create table SALESMAN(Salesman_id integer primary key,Name varchar(20),City varchar(20),Commission integer);
 create table CUSTOMER(Customer_id integer primary key,Cust_name varchar(20),City varchar(20),Grade varchar(5),
-Salesman_id integer,foreign key(Salesman_id)  references SALESMAN(Salesman_id) ON DELETE CASCADE);
+Salesman_id integer,foreign key(Salesman_id)  references SALESMAN(Salesman_id) ON DELETE SET NULL);
 create table ORDERS(Order_No integer primary key,Purchase_Amt integer,ord_date date,Customer_id integer,Salesman_id integer,
 foreign key(Customer_id) references CUSTOMER(Customer_id) ON DELETE CASCADE,foreign key(Salesman_id) references 
 SALESMAN(Salesman_id) ON DELETE CASCADE);
@@ -19,6 +19,7 @@ insert into ORDERS values(552,2500,'2020-02-05',2000,20);
 insert into ORDERS values(553,500,'2020-03-03',3000,40);
 insert into ORDERS values(554,1500,'2020-04-02',4000,30);
 insert into ORDERS values(555,2000,'2020-06-02',2000,10);
+insert into ORDERS values(556,30000,'2020-06-02',5000,10);
 
 Query2
 select Salesman_id,Name from SALESMAN where Salesman_id in(select Salesman_id from ORDERS group by 
@@ -61,8 +62,21 @@ Salesman_id	Name	City	Commission
 50	      khan	bangalore	3
 
 Query 4
-create view v as select Salesman_id from ORDERS
-group by ord_date having max(ord_date);
+create view Best_salesman as 
+select Salesman_id,Purchase_Amt,ord_date from ORDERS where Purchase_Amt in (select max(Purchase_Amt)
+from ORDERS group by ord_date);
+select * from Best_salesman;
+
+
+| Salesman_id | Purchase_Amt | ord_date   |
+| ----------- | ------------ | ---------- |
+| 10          | 5000         | 2020-01-04 |
+| 20          | 2500         | 2020-02-05 |
+| 40          | 500          | 2020-03-03 |
+| 30          | 1500         | 2020-04-02 |
+| 10          | 30000        | 2020-06-02 |
+
+
        
 Query 5
 delete from SALESMAN where Salesman_id=10;
@@ -71,19 +85,34 @@ select * from CUSTOMER;
 select * from ORDERS;
 
 
-Salesman_id	Name	City	       Commission
-20	        ram   bangalore	        10
-30	        raj   mangalore	        5
-40	       kiran  mysore	         15
-50	       khan   udupi	           10
+    select * from SALESMAN;
 
-Customer_id	   Cust_name	 City	      Grade	   Salesman_id
-2000	           kumar	 bangalore	   200	           20
-3000	          prithi 	 mysore	        300	           40
-4000	          smitha	 mangalore	    400	           30
-5000	            sara	 mysore	        300	           50
+| Salesman_id | Name  | City      | Commission |
+| ----------- | ----- | --------- | ---------- |
+| 20          | ram   | bangalore | 10         |
+| 30          | raj   | mangalore | 5          |
+| 40          | kiran | mysore    | 15         |
+| 50          | khan  | udupi     | 10         |
 
-Order_No	Purchase_Amt	ord_date	Customer_id	Salesman_id
-552	            2500	2020-02-05	2000	            20
-553	             500	2020-03-03	3000	            40
-554	            1500	2020-04-02	4000	            30
+
+    select * from CUSTOMER;
+
+| Customer_id | Cust_name | City      | Grade | Salesman_id |
+| ----------- | --------- | --------- | ----- | ----------- |
+| 1000        | avinash   | mangalore | 100   | null        |
+| 2000        | kumar     | bangalore | 200   | 20          |
+| 3000        | prithi    | mysore    | 300   | 40          |
+| 4000        | smitha    | mangalore | 400   | 30          |
+| 5000        | sara      | mysore    | 300   | 50          |
+
+
+    select * from ORDERS;
+
+| Order_No | Purchase_Amt | ord_date   | Customer_id | Salesman_id |
+| -------- | ------------ | ---------- | ----------- | ----------- |
+| 552      | 2500         | 2020-02-05 | 2000        | 20          |
+| 553      | 500          | 2020-03-03 | 3000        | 40          |
+| 554      | 1500         | 2020-04-02 | 4000        | 30          |
+
+---
+
