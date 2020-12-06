@@ -1,7 +1,7 @@
 create table ACTOR(Act_id integer primary key,Act_name varchar(20),Act_gender varchar(10));
 create table DIRECTOR(Dir_id integer primary key,Name varchar(20),Dir_phone varchar(10));
-create table MOVIES(Mov_id integer primary key,Mov_title varchar(20),Mov_year integer,Mov_lang varchar(10),
-Dir_id(MOVIES) foreign key references DIRECTOR(Dir_id));
-create table MOVIE_CAST(Act_id integer,Act_id(MOVIE_CAST)foreign key references ACTOR(Act_id),Mov_id integer,
-Mov_id(MOVIE_CAST) foreign key references MOVIES(Mov_id),Role varchar(20));
-create table RATING(Mov_id integer,Mov_id(RATING)foreign key references MOVIES(Mov_id),Rev_stars integer);                                                                                                                                             
+create table MOVIES(Mov_id integer primary key,Mov_title varchar(20),Mov_year integer,Mov_lang varchar(10),Dir_id integer,
+ foreign key(Dir_id) references DIRECTOR(Dir_id));
+create table MOVIE_CAST(Act_id integer,Mov_id integer,Role varchar(20),primary key(Act_id,Mov_id),
+foreign key(Act_id) references ACTOR(Act_id), foreign key(Mov_id) references MOVIES(Mov_id));
+create table RATING(Mov_id integer primary key,Rev_stars integer,foreign key(Mov_id) references MOVIES(Mov_id));                                                                                                                                           
