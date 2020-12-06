@@ -4,4 +4,19 @@ create table MOVIES(Mov_id integer primary key,Mov_title varchar(20),Mov_year in
  foreign key(Dir_id) references DIRECTOR(Dir_id));
 create table MOVIE_CAST(Act_id integer,Mov_id integer,Role varchar(20),primary key(Act_id,Mov_id),
 foreign key(Act_id) references ACTOR(Act_id), foreign key(Mov_id) references MOVIES(Mov_id));
-create table RATING(Mov_id integer primary key,Rev_stars integer,foreign key(Mov_id) references MOVIES(Mov_id));                                                                                                                                           
+create table RATING(Mov_id integer primary key,Rev_stars integer,foreign key(Mov_id) references MOVIES(Mov_id));    
+insert into ACTOR values(101,'Rahul','Male');
+insert into ACTOR values(102,'Sneha','Female');
+insert into ACTOR values(103,'Ramesh','Male');
+insert into ACTOR values(104,'Sahana','Female');
+insert into ACTOR values(105,'Gayan','Male'); 
+insert into DIRECTOR values(11,'Smith',9847569337);
+insert into DIRECTOR values(12,'Suhan',9274997667); 
+insert into DIRECTOR values(13,'Swarna',8847562537); 
+insert into DIRECTOR values(14,'Shamith',7547569327);
+insert into DIRECTOR values(15,'Sujith',7656562227); 
+insert into MOVIES values(501,'XYZ',2000,'English',11);   
+insert into MOVIES values(502,'ABC',2005,'Hindi',13);
+insert into MOVIES values(503,'PQR',2002,'Kannada',11);  
+insert into MOVIES values(504,'RST',2019,'English',14);   
+insert into MOVIES values(505,'EFG',2006,'Kannada',15);                                                                                                                                                                    
