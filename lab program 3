@@ -1,4 +1,4 @@
- create table ACTOR(Act_id integer primary key,Act_name varchar(20),Act_gender varchar(10))
+ create table ACTOR(Act_id integer primary key,Act_name varchar(20),Act_gender varchar(10));
  create table DIRECTOR(Dir_id integer primary key,Dir_name varchar(20),Dir_phone varchar(10));
  create table MOVIES(Mov_id integer primary key,Mov_title varchar(20),Mov_year integer,Mov_lang varchar(10),Dir_id integer,
  foreign key(Dir_id) references DIRECTOR(Dir_id));
@@ -45,3 +45,21 @@
 | RST       |
 
 ---
+
+**Query #2**
+select Mov_title from MOVIES M,MOVIE_CAST C where
+M.Mov_id=C.Mov_id and Act_id in (select C.Act_id from MOVIE_CAST group by Act_id having count(*)>1)
+group by Mov_title having count(*)>1;
+
+| Mov_title |
+| --------- |
+| ABC       |
+| RST       |
+
+---
+
+
+(select Act_id from MOVIES M JOIN MOVIE_CAST MC on M.Mov_id=MC.Mov_id where Mov_year<2000) intersect 
+(select Act_id from MOVIES M JOIN MOVIE_CAST MC on M.Mov_id=MC.Mov_id where Mov_year>2015)
+
+
