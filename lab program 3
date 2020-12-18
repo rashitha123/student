@@ -63,11 +63,45 @@ group by Mov_title having count(*)>1;
 (select Act_id from MOVIES M JOIN MOVIE_CAST MC on M.Mov_id=MC.Mov_id where Mov_year>2015)
 
 
+
+
+
+---
+
+**Query #4**
+
+    select Mov_title,Rev_stars from MOVIES M,RATING R where M.Mov_id=R.Mov_id and Rev_stars in(select max(Rev_stars) from 
+    RATING )order by Mov_title;
+
+| Mov_title | Rev_stars |
+| --------- | --------- |
+| ABC       | 5         |
+| RST       | 5         |
+
+---
+
 select Mov_title,Rev_stars from MOVIES M,RATING R where M.Mov_id=R.Mov_id and Rev_stars>1 order by Mov_title;
+
+
+**Query #5**
+
+    update RATING set Rev_stars=5 where Mov_id in(select Mov_id from MOVIES M ,DIRECTOR D where M.Dir_id=D.Dir_id and
+    D.Dir_name='Steven Spielberg');
+    
+ select * from RATING;
+
+| Mov_id | Rev_stars |
+| ------ | --------- |
+| 501    | 3         |
+| 502    | 5         |
+| 503    | 2         |
+| 504    | 5         |
+| 505    | 5         |
 
 
 
 update RATING R,MOVIES M,DIRECTOR D set Rev_stars=5 where Dir_name='Steven Spielberg' and 
 M.Dir_id=D.Dir_id and M.Mov_id=R.Mov_id;
 select * from RATING;
+
 
