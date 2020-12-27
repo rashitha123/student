@@ -7,3 +7,24 @@ foreign key(sem) references SEMSEC(sem));
 create table IAMARKS(usn varchar(20),subcode varchar(20),ssid integer,test1 integer,test2 integer,test3 integer,
 finalIA integer,primary key(usn,subcode,ssid),foreign key(usn) references STUDENT(usn),
 foreign key(subcode) references COURSE(subcode),foreign key(ssid) references SEMSEC(ssid));
+insert into STUDENT values('cs101','sharan','mangalore',9696500000,'male');
+insert into STUDENT values('cs102','prithi','bangalore',9896504400,'female');
+insert into STUDENT values('cs103','sahana','mysore',9486500550,'female');
+insert into STUDENT values('cs104','shan','mangalore',9696888765,'male');
+insert into STUDENT values('cs105','kiran','bangalore',9696558765,'male');
+insert into SEMSEC values(111,5,'cs1');
+insert into SEMSEC values(112,5,'cs2');
+insert into SEMSEC values(113,5,'cs1');
+insert into SEMSEC values(114,5,'cs1');
+insert into SEMSEC values(115,5,'cs2');
+insert into CLASS values('cs101',113);
+insert into CLASS values('cs102',115);
+insert into CLASS values('cs103',111);
+insert into CLASS values('cs104',112);
+insert into CLASS values('cs105',114);
+insert into COURSE values('18cs51','atc',5,3);
+insert into COURSE values('18cs52','dbms',5,4);
+insert into COURSE values('18cs53','up',5,2);
+insert into COURSE values('18cs54','me',5,3);
+insert into COURSE values('18cs55','cns',5,4);
+
