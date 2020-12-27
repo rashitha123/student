@@ -1,0 +1,9 @@
+create table STUDENT(usn varchar(20) primary key,sname varchar(20),address varchar(20),phone long,gender varchar(10));
+create table SEMSEC(ssid integer primary key,sem integer,sec varchar(5));
+create table CLASS(usn varchar(20) primary key,ssid integer,foreign key(usn) references STUDENT(usn),
+foreign key(ssid) references SEMSEC(ssid));
+create table COURSE(subcode varchar(20) primary key,title varchar(20),sem integer,credits integer,
+foreign key(sem) references SEMSEC(sem));
+create table IAMARKS(usn varchar(20),subcode varchar(20),ssid integer,test1 integer,test2 integer,test3 integer,
+finalIA integer,primary key(usn,subcode,ssid),foreign key(usn) references STUDENT(usn),
+foreign key(subcode) references COURSE(subcode),foreign key(ssid) references SEMSEC(ssid));
