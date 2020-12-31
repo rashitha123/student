@@ -2,8 +2,7 @@ create table STUDENT(usn varchar(20) primary key,sname varchar(20),address varch
 create table SEMSEC(ssid integer primary key,sem integer,sec varchar(5));
 create table CLASS(usn varchar(20) primary key,ssid integer,foreign key(usn) references STUDENT(usn),
 foreign key(ssid) references SEMSEC(ssid));
-create table COURSE(subcode varchar(20) primary key,title varchar(20),sem integer,credits integer,
-foreign key(sem) references SEMSEC(sem));
+create table COURSE(subcode varchar(20) primary key,title varchar(20),sem integer,credits integer);
 create table IAMARKS(usn varchar(20),subcode varchar(20),ssid integer,test1 integer,test2 integer,test3 integer,
 finalIA integer,primary key(usn,subcode,ssid),foreign key(usn) references STUDENT(usn),
 foreign key(subcode) references COURSE(subcode),foreign key(ssid) references SEMSEC(ssid));
@@ -27,4 +26,13 @@ insert into COURSE values('18cs52','dbms',5,4);
 insert into COURSE values('18cs53','up',5,2);
 insert into COURSE values('18cs54','me',5,3);
 insert into COURSE values('18cs55','cns',5,4);
-
+insert into IAMARKS values('cs101','18cs51',113,50,46,47,48); 
+insert into IAMARKS values('cs101','18cs52',113,40,40,47,42);
+insert into IAMARKS values('cs101','18cs53',113,50,40,45,45);
+insert into IAMARKS values('cs101','18cs54',113,40,46,41,42);
+insert into IAMARKS values('cs101','18cs55',113,50,46,40,45);
+insert into IAMARKS values('cs103','18cs51',111,45,42,44,44);
+insert into IAMARKS values('cs103','18cs52',111,41,47,43,44);
+insert into IAMARKS values('cs103','18cs53',111,38,42,41,40);
+insert into IAMARKS values('cs103','18cs54',111,35,45,40,40);
+insert into IAMARKS values('cs103','18cs55',111,39,46,40,42); 
