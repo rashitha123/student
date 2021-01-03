@@ -1,0 +1,9 @@
+create table DEPARTMENT(dno integer primary key,dname varchar(20),mgrssn integer,mgrstartdate date);
+create table EMPLOYEE(ssn integer primary key,name varchar(20),address varchar(20),sex varchar(1),
+salary integer,superssn integer,dno integer,foreign key(dno) references DEPARTMENT(dno));
+create table DLOCATION(dno integer ,dloc varchar(20),primary key(dno,dloc),foreign key(dno) references 
+DEPARTMENT(dno));
+create table PROJECT(pno integer primary key,pname varchar(20),plocation varchar(20),dno integer,
+foreign key(dno) references DEPARTMENT(dno));
+create table WORKS_ON(ssn integer,pno integer,hours integer,primary key(ssn,pno),foreign key(ssn) 
+references EMPLOYEE(ssn),foreign key(pno) references PROJECT(pno)); 
