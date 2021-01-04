@@ -1,9 +1,46 @@
-create table DEPARTMENT(dno integer primary key,dname varchar(20),mgrssn integer,mgrstartdate date);
+create table DEPARTMENT(dno integer primary key,dname varchar(20),mgrstartdate date);
 create table EMPLOYEE(ssn integer primary key,name varchar(20),address varchar(20),sex varchar(1),
-salary integer,superssn integer,dno integer,foreign key(dno) references DEPARTMENT(dno));
+salary integer,dno integer,foreign key(dno) references DEPARTMENT(dno) ON DELETE CASCADE);
 create table DLOCATION(dno integer ,dloc varchar(20),primary key(dno,dloc),foreign key(dno) references 
-DEPARTMENT(dno));
+DEPARTMENT(dno) ON DELETE CASCADE);
 create table PROJECT(pno integer primary key,pname varchar(20),plocation varchar(20),dno integer,
-foreign key(dno) references DEPARTMENT(dno));
+foreign key(dno) references DEPARTMENT(dno) ON DELETE CASCADE);
 create table WORKS_ON(ssn integer,pno integer,hours integer,primary key(ssn,pno),foreign key(ssn) 
-references EMPLOYEE(ssn),foreign key(pno) references PROJECT(pno)); 
+references EMPLOYEE(ssn) ON DELETE CASCADE,foreign key(pno) references PROJECT(pno) ON DELETE CASCADE);
+insert into DEPARTMENT values(1,'accounts','2020-08-15');
+insert into DEPARTMENT values(2,'research','2015-07-25');  
+insert into DEPARTMENT values(3,'administration','2018-05-10');
+insert into DEPARTMENT values(4,'headquarters','2016-02-05');
+insert into DEPARTMENT values(5,'production','2012-08-01');
+insert into EMPLOYEE values(101,'ram','mangalore','M',43000,4);
+insert into EMPLOYEE values(102,'rani','bangalore','F',50000,3);  
+insert into EMPLOYEE values(103,'sam','udupi','M',35000,1);
+insert into EMPLOYEE values(104,'jin','chennai','M',45000,2);
+insert into EMPLOYEE values(105,'panchami','mumbai','F',60000,5);  
+insert into DLOCATION values(1,'mysore');                             
+insert into DLOCATION values(2,'gujrat');                          
+insert into DLOCATION values(3,'delhi');                              
+insert into DLOCATION values(4,'goa');                                
+insert into DLOCATION values(5,'kashmir');                            
+insert into PROJECT values(11,'abc','japan',5);
+insert into PROJECT values(12,'def','korea',4);  
+insert into PROJECT values(13,'pqr','rajastan',3);   
+insert into PROJECT values(14,'uvw','bengal',2);
+insert into PROJECT values(15,'xyz','usa',1);   
+insert into WORKS_ON values(101,12,5);
+insert into WORKS_ON values(102,13,12);
+insert into WORKS_ON values(103,15,25);
+insert into WORKS_ON values(104,14,18);                               
+insert into WORKS_ON values(105,11,9);  
+alter table DEPARTMENT add mgrssn integer references EMPLOYEE(ssn);
+update DEPARTMENT set mgrssn=103 where dno=1;                           
+update DEPARTMENT set mgrssn=104 where dno=2;
+update DEPARTMENT set mgrssn=102 where dno=3;                           
+update DEPARTMENT set mgrssn=101 where dno=4; 
+update DEPARTMENT set mgrssn=105 where dno=5;                                         
+alter table EMPLOYEE add superssn integer references EMPLOYEE(ssn);  
+update EMPLOYEE set superssn=103 where ssn=101;
+update EMPLOYEE set superssn=101 where ssn=102;   
+update EMPLOYEE set superssn=105 where ssn=103;
+update EMPLOYEE set superssn=102 where ssn=104;  
+update EMPLOYEE set superssn=104 where ssn=105;                                       
