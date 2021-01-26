@@ -102,7 +102,8 @@ insert into IAMARKS values('cs103','18cs55',111,19,16,10,null);
      WHEN finalIA>=17 and finalIA<=20 then 'Outstanding'
      WHEN finalIA>=12 and finalIA<=17 then 'Average'
      WHEN finalIA<12 then 'Weak'
-     END)CAT from STUDENT S,IAMARKS IA,CLASS C,SEMSEC SS where S.usn=IA.usn and S.usn=C.usn and C.ssid=SS.ssid and sem=8 and (sec='A' or sec='B' or sec='C');
+     END)CAT from STUDENT S,IAMARKS IA,CLASS C,SEMSEC SS where S.usn=IA.usn and S.usn=C.usn and C.ssid=SS.ssid and 
+     sem=8 and (sec='A' or sec='B' or sec='C');
 
 | usn   | sname  | finalIA | CAT         |
 | ----- | ------ | ------- | ----------- |
